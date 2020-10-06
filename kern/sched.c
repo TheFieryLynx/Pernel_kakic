@@ -32,13 +32,13 @@ sched_yield(void) {
   }
   int orig = id;
   do {
-    id = (id + 1) % NENV;
-    if (envs[id].env_status == ENV_RUNNABLE || 
-        (id == orig && envs[id].env_status == ENV_RUNNING)) {
+    id = (id + 1) % NENV;    //id от 0 до NENV - количества процессов
+                                                          //ищем подходящую среду для запуска
+    if (envs[id].env_status == ENV_RUNNABLE || (id == orig && envs[id].env_status == ENV_RUNNING)) {
       env_run(envs + id); 
     }
   } while (id != orig);
-  sched_halt();
+  sched_halt(); //остановка процессора если нет подходящих сред
 }
 
 // Halt this CPU when there is nothing to do. Wait until the

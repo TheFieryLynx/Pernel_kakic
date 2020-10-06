@@ -128,13 +128,15 @@ env_init(void) {
   // Set up envs array
   // LAB 3: Your code here.
 
-  env_free_list = NULL; // NULLing new env_list 
+  env_free_list = NULL;
+  // инициализация всех сред 
   for (int i = NENV - 1; i >= 0; i--) { 
-    // initialization in for loop every new environment till max env met
+    
     envs[i].env_link = env_free_list;
     envs[i].env_id   = 0;
     env_free_list    = &envs[i];
   }
+  env_init_percpu();
 }
 
 // Load GDT and segment descriptors.
@@ -320,16 +322,16 @@ load_icode(struct Env *e, uint8_t *binary) {
   //  What?  (See env_run() and env_pop_tf() below.)
 
   // LAB 3: Your code here.
-  // AHTUNG: из чего состоит Elf и Proghdr смотри в Elf64.h. Elf - это структура выполняемого фаила
-  struct Elf *elf = (struct Elf *)binary; // binary приодится к типу указателя на структуру ELF
+
+  struct Elf *elf = (struct Elf *)binary; 
   if (elf->e_magic != ELF_MAGIC) {
     cprintf("Unexpected ELF format\n");
     return;
   }
 
-  struct Proghdr *ph = (struct Proghdr *)(binary + elf->e_phoff); // Proghdr = prog header. Он лежит со смещением elf->e_phoff относительно начала фаила
+  struct Proghdr *ph = (struct Proghdr *)(binary + elf->e_phoff); // Proghdr = prog header. Он лежит со смещением elf->e_phoff относительно начала файла
 
-  for (size_t i = 0; i < elf->e_phnum; i++) { //elf->e_phnum - Число заголовков программы. Если у файла нет таблицы заголовков программы, это поле содержит 0.
+  for (size_t i = 0; i < elf->e_phnum; i++) {        //elf->e_phnum - Число заголовков программы. Если у файла нет таблицы заголовков программы, это поле содержит 0.
     if (ph[i].p_type == ELF_PROG_LOAD) {
 
       void *src = binary + ph[i].p_offset;
@@ -360,7 +362,7 @@ env_create(uint8_t *binary, enum EnvType type){
 
   struct Env *newenv; 
   if (env_alloc(&newenv, 0) < 0) {
-    panic("Can't allocate new environment");  // попытка выделить среду – если нет – вылет по панике ядра
+    panic("Can't allocate new environment");  // попытка выделить среду
   }
   
   newenv->env_type = type;
@@ -504,10 +506,10 @@ env_run(struct Env *e) {
   //
   // LAB 3: Your code here.
 
-  if (curenv) {  // if curenv == False, значит, какого-нибудь исполняемого процесса нет
+  if (curenv) {     // if curenv == False, значит, какого-нибудь исполняемого процесса нет
     if (curenv->env_status == ENV_DYING) { // если процесс стал зомби
       struct Env *old = curenv;  // ставим старый адрес
-      env_free(curenv);  // самурай запятнал свой env – убираем его в ножны дабы стереть кровь
+      env_free(curenv);  
       if (old == e) { // e - аргумент функции, который к нам пришел
         sched_yield();  // переключение системными вызовами 
       }

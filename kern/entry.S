@@ -80,9 +80,7 @@ sys_yield:
 .globl sys_exit
 .type  sys_exit, @function
 sys_exit:
-  # leap address in rsp
-  leaq bootstacktop(%rip),%rsp  
-  # register set 0 (xor), % - name of register  
+  leaq bootstacktop(%rip), %rsp                #загружаем адрес bootstacktop в rsp относительно rip  
   xor %ebp, %ebp                  
   call csys_exit
   jmp .
@@ -101,4 +99,3 @@ bootstacktop:
 .globl uefi_lp
 uefi_lp:
   .quad 0x0
-
