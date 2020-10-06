@@ -78,7 +78,7 @@ _head64:
   cmp $0x0,%ecx
   jne 1b
 
-  # Update CR3 register.
+  # Update CR3 register. 
   movq $pml4,%rax
   movq %rax, %cr3
 

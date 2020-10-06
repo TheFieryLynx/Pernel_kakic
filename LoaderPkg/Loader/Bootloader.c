@@ -1072,7 +1072,7 @@ UefiMain (
     DEBUG ((DEBUG_ERROR, "JOS: Failed to load kernel - %r\n", Status));
     FreePool (LoaderParams);
     gBS->CloseEvent (VirtualNotifyEvent);
-    return Status;
+    return Status; 
   }
 
   DEBUG ((DEBUG_INFO, "JOS: LoaderParams pointer: %p\n", LoaderParams));
