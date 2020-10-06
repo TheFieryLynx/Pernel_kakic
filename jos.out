@@ -1,0 +1,59 @@
+efibuild.sh: line 443: 14609 Terminated              pingme $! build "$@"  (wd: ~/Documents/qemu/oscourse/LoaderPkg/UDK)
+Packaging...
+***
+*** Now run 'gdb'.
+***
+vvfat LoaderPkg/ESP chs 1024,16,63
+WARNING: Image format was not specified for 'json:{"fat-type": 0, "dir": "LoaderPkg/ESP", "driver": "vvfat", "floppy": false, "rw": true}' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+qemu-system-x86_64: warning: TCG doesn't support requested feature: CPUID.01H:ECX.vmx [bit 5]
+[2J[01;01H[=3h[2J[01;01H[0m[35m[40m[0m[37m[40mBdsDxe: failed to load Boot0001 "UEFI QEMU DVD-ROM QM00003 " from PciRoot(0x0)/Pci(0x1,0x1)/Ata(Secondary,Master,0x0): Not Found
+BdsDxe: loading Boot0002 "UEFI QEMU HARDDISK QM00001 " from PciRoot(0x0)/Pci(0x1,0x1)/Ata(Primary,Master,0x0)
+BdsDxe: starting Boot0002 "UEFI QEMU HARDDISK QM00001 " from PciRoot(0x0)/Pci(0x1,0x1)/Ata(Primary,Master,0x0)
+JOS: Loading at 2020-9-30 - 11:24:54...
+JOS: Found ACPI 1.0 RSDP table BFB7E000
+JOS: Found ACPI 2.0 RSDP table BFB7E014
+JOS: Graphics Mode set 13
+JOS: CR0 - 80010033 CR3 - BFC01000
+JOS: Loading kernel image...
+JOS: Loading debug tables...
+JOS: MinAddress: 0x1500000, MaxAddress: 0x1617000, Kernel size: 0x117000
+JOS: Loaded kernel with 1500000 entry point
+JOS: LoaderParams pointer: BF939990
+JOS: KernelCallGate: BE83257B
+6828 decimal is 15254 octal!
+END: 0x8041617000
+Framebuffer initialised
+entering test_backtrace 5
+entering test_backtrace 4
+entering test_backtrace 3
+entering test_backtrace 2
+entering test_backtrace 1
+entering test_backtrace 0
+Stack backtrace:
+  rbp 0000008041615f10  rip 00000080416001ca
+            kern/init.c:71: test_backtrace+71
+  rbp 0000008041615f30  rip 00000080416001fd
+            kern/init.c:69: test_backtrace+122
+  rbp 0000008041615f50  rip 00000080416001fd
+            kern/init.c:69: test_backtrace+122
+  rbp 0000008041615f70  rip 00000080416001fd
+            kern/init.c:69: test_backtrace+122
+  rbp 0000008041615f90  rip 00000080416001fd
+            kern/init.c:69: test_backtrace+122
+  rbp 0000008041615fb0  rip 00000080416001fd
+            kern/init.c:69: test_backtrace+122
+  rbp 0000008041615fd0  rip 00000080416002d2
+            kern/init.c:103: i386_init+211
+  rbp 0000008041615ff0  rip 0000008041600016
+            kern/entry.S:23: kern/entry.S+0
+leaving test_backtrace 0
+leaving test_backtrace 1
+leaving test_backtrace 2
+leaving test_backtrace 3
+leaving test_backtrace 4
+leaving test_backtrace 5
+Welcome to the JOS kernel monitor!
+Type 'help' for a list of commands.
+qemu-system-x86_64: terminating on signal 15 from pid 14261 (make)
